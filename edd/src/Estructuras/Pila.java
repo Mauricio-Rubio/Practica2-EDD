@@ -27,6 +27,7 @@ public class Pila<T> extends PushPop<T>{
      */
     public Pila<T> clone(){
         Pila<T> nueva = new Pila<T>();
+	Pila<T> aux = new Pila<T>();
         if (this.isEmpty()) {
             return nueva;
         }
@@ -36,18 +37,25 @@ public class Pila<T> extends PushPop<T>{
            nueva.push(n.siguiente.elemento);
            n = n.siguiente;
         }
-        return nueva;
+	n=nueva.cabeza;
+	aux.push(n.elemento);
+ while (n.siguiente != null) {
+	aux.push(n.siguiente.elemento);
+	 n = n.siguiente;
+	 }
+ 
+        return aux;
 
     }
 
     public String toString(){
         if (this.isEmpty()) {
-            return "";
+            return "*";
         }
-        String regreso = this.cabeza.elemento.toString();
+        String regreso = " " + this.cabeza.elemento.toString();
         Nodo n = this.cabeza;
         while (n.siguiente != null) {
-            regreso += ", " + n.siguiente.elemento.toString();
+            regreso += " \n " + n.siguiente.elemento.toString();
             n = n.siguiente;
         }
         return regreso;
