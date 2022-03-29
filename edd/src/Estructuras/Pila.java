@@ -52,10 +52,10 @@ public class Pila<T> extends PushPop<T>{
         if (this.isEmpty()) {
             return "*";
         }
-        String regreso = " " + this.cabeza.elemento.toString();
+        String regreso = "< " + this.cabeza.elemento.toString();
         Nodo n = this.cabeza;
         while (n.siguiente != null) {
-            regreso += " \n " + n.siguiente.elemento.toString();
+            regreso += ", " + n.siguiente.elemento.toString();
             n = n.siguiente;
         }
         return regreso;
