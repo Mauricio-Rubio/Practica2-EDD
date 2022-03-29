@@ -7,19 +7,17 @@ public class Practica2 {
         // No olvides imprimir cada paso de la solución.
     }
 
-    public static void binarioColas(int N) {
+    public static Cola<String> binarioColas(int N) {
         Cola <String> cola = new Cola<>(); 
         if (N < 0) {
             throw new IllegalArgumentException("");
         }
         if(N == 0){
             cola.push("0");
-            System.out.println(cola);
         }
         if (N >= 1) {
-            cola.push("1");
-            System.out.println("---------------------");
-            while( (N--) > 0){
+            cola.push("0");
+            while( (N-1) > 0){
             String s1 = cola.peek();
             cola.pop();
             System.out.println(s1);
@@ -27,16 +25,14 @@ public class Practica2 {
             cola.push(s1+"0");
             cola.push(s2 + "1");
             }
-            System.out.println("---------------------");
         }
+        return null;
     }
 
     public static void main(String[] args) {
         // Escribe aqui tu codigo para probar los metodos anteriores.
         // No olvides comentar tu codigo y escribir tu nombre en el readme.
-        for(int i = 0; i<10; i++){
-            binarioColas(i);
-        }
+        binarioColas(10);
     }
 
 }
