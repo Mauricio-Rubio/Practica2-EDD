@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.applet.Applet;
 import javax.swing.JPanel;
 
 /**
@@ -61,6 +62,10 @@ public class Imagen extends JPanel {
      * @param colores Se mapean a cada estado de la matriz para pintarlo de su respectivo color.
      */
     public void pinta(int[][] matriz, Color[] colores) {
+    	Color rosa = new Color(252,3,161);
+    	Color morado = new Color(152, 3, 252);
+    	this.setForeground(rosa);
+    	this.setForeground(morado);
 	   Graphics2D gc = imagen.createGraphics();
     for (int i=1;i<matriz.length+1;i++) {
             for (int j=1;j<matriz.length+1;j++) {
@@ -74,11 +79,11 @@ public class Imagen extends JPanel {
                     case 2:
                         gc.setColor(Color.WHITE); break;
                     case 3:
-                        gc.setColor(Color.BLACK); break;
+                        gc.setColor(morado); break;
                     case 4:
                         gc.setColor(Color.RED); break;
                     case 5: 
-                        gc.setColor(Color.GREEN); break;
+                        gc.setColor(rosa); break;
                     
                 }
                 gc.fillRect(aux1i,aux1j,sizeCell,sizeCell);

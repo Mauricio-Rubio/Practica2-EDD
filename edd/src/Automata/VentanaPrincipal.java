@@ -58,8 +58,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
          * AutomataCelular a = new juego();
          */
        //AutomataCelular a = new JuegoVida();
-       AutomataCelular a = new Mondrian();
-       //AutomataCelular a=new juego();
+      // AutomataCelular a = new Mondrian();
+       AutomataCelular a=new juego();
        vp = new VentanaPrincipal(a);
     }
     @SuppressWarnings("unchecked")
