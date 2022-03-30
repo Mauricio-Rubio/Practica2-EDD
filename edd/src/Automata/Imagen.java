@@ -71,11 +71,11 @@ public class Imagen extends JPanel {
         Color MARRON = new Color(164, 115, 111);
         Color CREMA = new Color(255, 234, 199);
         Color MEXPINK = new Color(233, 94, 115);
-        Color BLUE = new Color(233, 94, 115);
+        Color BLUE = new Color(55, 4, 174);
         //this.setForeground(miColor);
         switch (matriz[i - 1][j - 1]) {
           case 0:
-            gc.setColor(Color.YELLOW);
+            gc.setColor(CREMA);
             break;
           case 1:
             gc.setColor(MEXPINK);
@@ -84,15 +84,12 @@ public class Imagen extends JPanel {
             gc.setColor(VIOLET);
             break;
           case 3:
-            gc.setColor(Color.BLACK);
+            gc.setColor(MARRON);
             break;
           case 4:
-            gc.setColor(Color.RED);
+            gc.setColor(BLUE);
             break;
           case 5:
-            gc.setColor(Color.GREEN);
-            break;
-          case 6:
             gc.setColor(Color.GREEN);
             break;
         }
