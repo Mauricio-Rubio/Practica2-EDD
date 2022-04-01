@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.applet.Applet;
 import javax.swing.JPanel;
 
 /**
@@ -53,14 +54,50 @@ public class Imagen extends JPanel {
     }
   }
 
-  /**
-   * Metodo que mapea la matriz del automata a su representacion grafica. Este metodo considera
-   * el tamanio de cada celda para poderla pintar. Se le pasa como parametro un arreglo de colores,
-   * para que cada vez que vea un valor en la matriz este lo busque en el arreglo de colores y pinte la celda de ese color.
-   * Es necesario que la longitud del arreglo sea igual al maximo de los valores que se encuentran en la matriz.
-   * @param matriz Representa la malla del automata con sus posibles estados.
-   * @param colores Se mapean a cada estado de la matriz para pintarlo de su respectivo color.
-   */
+    /**
+     * Metodo que mapea la matriz del automata a su representacion grafica. Este metodo considera
+     * el tamanio de cada celda para poderla pintar. Se le pasa como parametro un arreglo de colores, 
+     * para que cada vez que vea un valor en la matriz este lo busque en el arreglo de colores y pinte la celda de ese color.
+     * Es necesario que la longitud del arreglo sea igual al maximo de los valores que se encuentran en la matriz.
+     * @param matriz Representa la malla del automata con sus posibles estados. 
+     * @param colores Se mapean a cada estado de la matriz para pintarlo de su respectivo color.
+     */
+    public void pinta(int[][] matriz, Color[] colores) {
+    //PARA CUADROROJOCUNIANEGRA
+    	Color azulito = new Color(66, 227, 245);
+    	Color verdecito = new Color(108, 245, 66);
+    	Color amarillito = new Color(245, 242, 66);
+    	
+    	this.setForeground(azulito);
+    	this.setForeground(verdecito);
+    	this.setForeground(amarillito);
+    	
+    	
+	   Graphics2D gc = imagen.createGraphics();
+    for (int i=1;i<matriz.length+1;i++) {
+            for (int j=1;j<matriz.length+1;j++) {
+                int aux1i = (sizeCell*(i-1)+i);
+                int aux1j = (sizeCell*(j-1)+j);
+               switch (matriz [i-1][j-1]) {
+                    case 0:
+                        gc.setColor(amarillito); break;
+                    case 1:
+                        gc.setColor(azulito); break;
+                    case 2:
+                        gc.setColor(Color.WHITE); break;
+                    case 3:
+                        gc.setColor(Color.RED); break;
+                    case 4:
+                        gc.setColor(Color.BLACK); break;
+                    case 5: 
+                        gc.setColor(verdecito); break;
+                    
+                }
+                //AQUI ACABA
+                gc.fillRect(aux1i,aux1j,sizeCell,sizeCell);
+            }
+       }       
+        updateUI();
   public void pinta(int[][] matriz, Color[] colores) {
     Graphics2D gc = imagen.createGraphics();
     for (int i = 1; i < matriz.length + 1; i++) {

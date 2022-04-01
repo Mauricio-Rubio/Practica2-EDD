@@ -88,7 +88,7 @@ public abstract class PushPop<T> {
         }
         @SuppressWarnings("unchecked") PushPop<T> pp = (PushPop<T>)o;
         if (this.longi != pp.longi) {
-            System.out.println("Los tamaños no son iguales.");
+           // System.out.println("Los tamaños no son iguales.");
             return false;
         }
         if (this.isEmpty() && pp.isEmpty()) {
