@@ -86,11 +86,11 @@ public class Imagen extends JPanel {
                     case 2:
                         gc.setColor(Color.WHITE); break;
                     case 3:
-                        gc.setColor(morado); break;
+                        gc.setColor(Color.RED); break;
                     case 4:
-                        gc.setColor(verdecito); break;
+                        gc.setColor(Color.BLACK); break;
                     case 5: 
-                        gc.setColor(rosa); break;
+                        gc.setColor(verdecito); break;
                     
                 }
                 gc.fillRect(aux1i,aux1j,sizeCell,sizeCell);
