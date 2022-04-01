@@ -67,8 +67,6 @@ public class Imagen extends JPanel {
     	Color verdecito = new Color(108, 245, 66);
     	Color amarillito = new Color(245, 242, 66);
     	
-    	this.setForeground(rosa);
-    	this.setForeground(morado);
     	this.setForeground(azulito);
     	this.setForeground(verdecito);
     	this.setForeground(amarillito);
