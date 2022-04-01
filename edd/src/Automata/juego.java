@@ -9,7 +9,7 @@ public class juego extends AC{
 		int[][] CopiaM =new int [Imagen.numCells][Imagen.numCells];
 
 
-		Pila<Integer> pila1 = new Pila<Integer>();
+    //Pila<Integer> pila1 = new Pila<Integer>();
 	 
    	/*
    	*Metodo que pinta una matriz de Blanco y le da valores aleatorios a las casillas.
@@ -117,19 +117,63 @@ public class juego extends AC{
 		
 		// Se crea una matriz copia para reemplazar los Valores.
 		int[][] CopiaM = new int[Imagen.numCells][Imagen.numCells];
+		Pila<Integer> pilaPinta = new Pila<Integer>();
+		Cola<Integer> colaPinta = new Cola<Integer>();
 		// System.out.println("entre"); SOP que ayuda a verificar cuando se efectuaba un
 		// evoluciona.
 
 		// super.estado++; // Operacion que aumentaba el contador en una unidad.
-		int vivos; // Contador de casillas vecindad vivas.
+		int rojos,verdes,azules,blancos,rosas,morados; // Contador de casillas vecindad vivas.
 		int muertos; // Contador de casillas vecindad muertas.
 
 		// For que escanea toda la matriz.
 		for (int i = 0; i < Maux2.length; i++) {
 			for (int j = 0; j < Maux2.length; j++) {
-				vivos = 0; // Reiniciar contador de vivos.
-				muertos = 0; // Reiniciar contador de muertos.
+			    int f=0;
+			    	f = (int) ( Math.random() * 5 );
 
+				switch (f) {
+                    case 0:
+                        pilaPinta.push(0);
+			colaPinta.push(5);
+			break;
+                    case 1:
+                         pilaPinta.push(1);
+			colaPinta.push(4);
+			break;
+
+			break;
+                    case 2:
+                        pilaPinta.push(2);
+			colaPinta.push(3);
+			break;
+
+                    case 3:
+                         pilaPinta.push(3);
+			colaPinta.push(2);
+			break;
+
+                    case 4:
+                         pilaPinta.push(4);
+			colaPinta.push(1);
+			break;
+
+			
+                    case 5: 
+                         pilaPinta.push(5);
+			colaPinta.push(0);
+			break;
+
+                    
+                }
+			    
+			    
+				rojos = 0; 
+				verdes = 0;
+				azules = 0;
+				blancos = 0;
+				rosas= 0;
+				morados= 0;
 				// System.out.println("Revisando " + i + "," + j ); SOP que ayuda a checar que
 				// se realize correctamente el for.
 				for (int k = i - 1; k <= i + 1; k++) {
@@ -139,29 +183,30 @@ public class juego extends AC{
 							// System.out.println(" Analizando " + k + "," + l + " --> " + Maux2[k][l] );
 							// SOP que ayuda a checar los for.
 							if (Maux2[k][l] == 3) {
-								vivos++;
+								morados++;
 							} else {
-								muertos++;
+								rosas++;
 							}
 							
 							if (Maux2[k][l] == 5) {
-								vivos++;
+							    verdes++;
 							} else {
-								muertos++;
+							    rojos++;
 							}
 						}
 					}
 				}
+				
 				if (Maux2[i][j] == 5 || Maux2[i][j]== 3) { // Si la casilla esta viva,
-					if (vivos == 0 || vivos == 2) { // Y tiene dos o tres vecinos vivos
-						CopiaM[i][j] = 4; // entonces la casilla vivira.
-					} else if(vivos == 3){
+					if (morados == 1 || morados == 2) { // Y tiene dos o tres vecinos vivos
+					    CopiaM[i][j] = pilaPinta.pop(); // entonces la casilla vivira.
+					} else if(morados == 3){
 						CopiaM[i][j] = 3; // De otra forma muere.
 					}else{
 						CopiaM[i][j] = 0;
 					}
 				} else { // Si la casilla esta muerta,
-					if (vivos == 1 || vivos == 3) { // Y tiene 3 vecinos vivos
+					if (morados == 1 || morados == 3) { // Y tiene 3 vecinos vivos
 						CopiaM[i][j] = 3; // La casilla muerta vivira.
 					} else {
 						CopiaM[i][j] = 2; // De otro modo seguira muerta.
@@ -169,25 +214,7 @@ public class juego extends AC{
 				}
 				
 				
-				//PRUEBAAAAA
 				
-				/*if (Maux2[i][j] == 5) { // Si la casilla esta viva,
-					if (vivos == 5 || vivos == 3) { // Y tiene dos o tres vecinos vivos
-						CopiaM[i][j] = 5; // entonces la casilla vivira.
-					} else {
-						CopiaM[i][j] = 2; // De otra forma muere.
-					}
-				} else { // Si la casilla esta muerta,
-					if (vivos == 2) { // Y tiene 3 vecinos vivos
-						CopiaM[i][j] = 5; // La casilla muerta vivira.
-					} else {
-						CopiaM[i][j] = 3; // De otro modo seguira muerta.
-					}
-				}*/
-				// SOP que cuenta las casillas vecinas muertas y vivas y dice como cambiara el
-				// estado de la casilla.
-				// System.out.println(" Muertos " + muertos + " Vivos-> " + vivos + " -----> " +
-				// CopiaM[i][j] );
 			}
 		}
 		for (int i = 0; i < Maux2.length; i++) { // Fors que arreglan la matriz a regresar en la copia.
