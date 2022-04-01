@@ -106,16 +106,20 @@ public class Space extends AC {
     int[][] CopiaM = new int[Imagen.numCells][Imagen.numCells];
     // System.out.println("entre"); SOP que ayuda a verificar cuando se efectuaba un
     // evoluciona.
-
+    int aux1;
     Pila<Integer> pila = new Pila<Integer>();
     Cola<Integer> cola = new Cola<Integer>();
-
+    int crema = 0;
+    int rosa = 0;
+    int violet = 0;
+    int marron = 0;
+    int blue = 0;
+    int verde = 0;
+    int negro = 0;
     for (int i = 0; i < Maux2.length; i++) {
       for (int j = 0; j < Maux2.length; j++) {
-        cola = new Cola<>();
-        pila = new Pila<>();
-        pila.push(0);
-        cola.push(2);
+        //cola = new Cola<>();
+        //pila = new Pila<>();
         for (int k = i - 1; k <= i + 1; k++) {
           for (int l = j - 1; l <= j + 1; l++) {
             //Analisis de casillas vecindad.
@@ -126,23 +130,89 @@ public class Space extends AC {
               l < Maux2.length &&
               (k != i || l != j)
             ) {
-              //System.out.println("    Analizando " + k  + ","  + l  + "  --> " + Maux2[k][l]     ); SOP que ayuda a checar los for.
-              if (Maux2[k][l] == 5) {
-                cola.push(0);
-              }else{
-                cola.push(Maux2[k][l]);
+              switch (Maux2[k][l]) {
+                case 0:
+                  crema++;
+                  break;
+                case 1:
+                  rosa++;
+                  break;
+                case 2:
+                  violet++;
+                  break;
+                case 3:
+                  marron++;
+                  break;
+                case 4:
+                  blue++;
+                  break;
+                case 5:
+                  verde++;
+                  break;
+                default:
+                  negro++;
+                  break;
               }
+              cola.push(Maux2[k][l]);
             }
           }
         }
-        if(cola.peek() == 2){           //Si la casilla esta viva, 
+        if (crema > 8) {
+          do {
+            aux1 = (int) (Math.random() * (6-0)+0);
+          } while (aux1 == crema);
+          cola.push(aux1);
+          cola.push(2);
+        } else if (rosa > 8) {
+          do {
+            aux1 = (int) (Math.random() * (6-0)+0);
+          } while (aux1 == rosa);
+          cola.push(aux1);
+          cola.push(2);
+        } else if (violet > 10) {
+          do {
+            aux1 = (int) (Math.random() * (6-0)+0);
+          } while (aux1 == violet);
+          cola.push(aux1);
+        } else if (marron > 10) {
+          do {
+            aux1 = (int) (Math.random() * (6-0)+0);
+          } while (aux1 != marron);
+          cola.push(aux1);
+        } else if (blue > 10) {
+          do {
+            aux1 = (int) (Math.random() * (6-0)+0);
+          } while (aux1 == blue);
+          cola.push(aux1);
+        } else if (verde > 10) {
+          do {
+            aux1 = (int) (Math.random() * (6-0)+0);
+          } while (aux1 == verde);
+          cola.push(aux1);
+        } else {
+          do {
+            aux1 = (int) (Math.random() * (6-0)+0);
+          } while (aux1 == negro);
+          cola.push(aux1);
+        }
+        if (cola.peek() == 2) {
+          //cola.push(cola.peek());
           cola.pop();
-					if (cola.pop() != 2 ){  //Y tiene dos o tres vecinos vivos  
-					 CopiaM[i][j]=cola.peek();				//entonces la casilla vivira.
-					}else {
-					 	CopiaM[i][j]=2;				//De otra forma muere.
-						}			
-				}
+          if (cola.peek() != 2) {
+            CopiaM[i][j] = cola.peek();
+            cola.pop();
+          } else {
+            CopiaM[i][j] = 2;
+            cola.pop();
+            cola.push(cola.peek());
+          }
+        } else {
+          CopiaM[i][j] = cola.peek();
+          cola.push(cola.peek());
+          cola.pop();
+          cola.push(2);
+          cola.pop();
+        }
         /*else{ 							//Si la casilla esta muerta,
 					if ( pila.peek() != 2 ) {			//Y tiene 3 vecinos vivos
 						CopiaM[i][j]=pila.pop()+1-cola.peek(); 		//La casilla muerta vivira.
@@ -151,6 +221,7 @@ public class Space extends AC {
 						CopiaM[i][j]=cola.pop()+2-cola.peek();			//De otro modo seguira muerta.
 					}
 				}*/
+
       }
     }
     for (int i = 0; i < Maux2.length; i++) { // Fors que arreglan la matriz a regresar en la copia.

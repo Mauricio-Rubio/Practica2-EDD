@@ -71,7 +71,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         labelEvolucion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Automata Celular by Jorge Macias");
+        setTitle("Automata Celular by Isaac and Mauricio");
         setResizable(false);
 
         javax.swing.GroupLayout imagenLayout = new javax.swing.GroupLayout(imagen);
