@@ -62,17 +62,19 @@ public class Imagen extends JPanel {
      * @param colores Se mapean a cada estado de la matriz para pintarlo de su respectivo color.
      */
     public void pinta(int[][] matriz, Color[] colores) {
-    	/*Color rosa = new Color(252,3,161);
+    	Color rosa = new Color(252,3,161);
     	Color morado = new Color(152, 3, 252);
     	Color azulito = new Color(66, 227, 245);
     	Color verdecito = new Color(108, 245, 66);
-    	Color amarillito = new Color(245, 242, 66);*/
+    	Color amarillito = new Color(245, 242, 66);
     	
-    	/*this.setForeground(rosa);
+    	this.setForeground(rosa);
     	this.setForeground(morado);
     	this.setForeground(azulito);
     	this.setForeground(verdecito);
-    	this.setForeground(amarillito);*/
+    	this.setForeground(amarillito);
+    	
+    	
 	   Graphics2D gc = imagen.createGraphics();
     for (int i=1;i<matriz.length+1;i++) {
             for (int j=1;j<matriz.length+1;j++) {
@@ -80,9 +82,9 @@ public class Imagen extends JPanel {
                 int aux1j = (sizeCell*(j-1)+j);
                switch (matriz [i-1][j-1]) {
                     case 0:
-                        gc.setColor(Color.YELLOW); break;
+                        gc.setColor(amarillito); break;
                     case 1:
-                        gc.setColor(Color.BLUE); break;
+                        gc.setColor(azulito); break;
                     case 2:
                         gc.setColor(Color.WHITE); break;
                     case 3:
@@ -90,7 +92,7 @@ public class Imagen extends JPanel {
                     case 4:
                         gc.setColor(Color.BLACK); break;
                     case 5: 
-                        gc.setColor(Color.GREEN); break;
+                        gc.setColor(verdecito); break;
                     
                 }
                 gc.fillRect(aux1i,aux1j,sizeCell,sizeCell);
