@@ -1,5 +1,5 @@
-## Nombres ->
-        ->
+## Nombres -> Mauricio Rubio Haro        
+           -> Kevin Isaac Alcántara Estrada
 
 compilar -> javac -d . src/Estructuras/*.java
 
@@ -17,17 +17,8 @@ run : java edd.src.Automata.VentanaPrincipal
 Recuerda, como tu automata usara objetos Pila y Cola. Debes compilar primero esa sección de la práctica. 
 
 
-Para cambiar el Automata Celular que se mostrara modifica la linea 61 de la clase VentanaPrincipal
+Para cambiar el Automata Celular que se mostrara modifica la linea 61 de la clase VentanaPrincipal, en dicha
+linea se tendrá que elegir que autómata ejecutar, por defecto se encuentra el elaborado por Kevin correspondiente a la clase CuadroRojoCuniaNegra, inspirado en la pintura "Cuadrado negro y cuadrado rojo" de Malevich, por otro lado se encuentra el autómata elaborado por Mauricio el cual corresponde a la clase Space, en caso de querer ejecutar este ultimo será necesario modificar la linea 67 y comentar el automata anterior para llamar al automata Space, ademas que será necesario quitar los comentarios al metodo pinta que se encuentra en la clase Imagen, cuya firma especifica su uso para el automata Space.
 
-Para cambiar el tiempo entre evoluciones. modifica el valor 
-Thread.sleep(1000);
-de la linea 172 de la clase Ventana Principal, mientras más grande el número, más lento evolucionara. 
+Enjoy!!
 
-## Colores
-Para agregar nuevos colores revisa el metodo Pinta de la clase Imagen.
-color 0: YELLOW
-color 1: BLUE
-color 2: WHITE
-color 3: BLACK
-color 4: RED
-color 5: GREEN
