@@ -24,45 +24,75 @@ public class Space extends AC {
         MauxCopia[i][j] = 2;
       }
     }
-    int longi = Maux2.length - 1;
-	int longi2 = Maux2.length - 10;
-    System.out.println("Lengt 1 ---> " + longi);
-    for (int i = 0; i < Maux2.length; i++) {
-      for (int j = 0; j < Maux2[i].length; j++) {
-        if (j == 0  || j == longi2|| i == 0 || i == longi ) {
-          aux1 = (int) (Math.random() * 60); //Random del 0 al 12
-          if (aux1 > 3) {
-            Maux2[i][j] = 2; // VIOLET COLOR
-          } else if(aux1 >= 1){
-            Maux2[i][j] = 0; // CREMA COLOR
-          }else{
-			Maux2[i][j] = 4; // Azul
-		  }
+    int x = 1;
+    int longi = Imagen.numCells;
+    int alpha = 5;
+    int beta = 10;
+    int gama = 15;
+    int delta = 20;
+    while (x <= (longi)) {
+      for (int i = 0; i < longi; i++) {
+        for (int r = 0; r < longi; r++) {
+          if (
+            r == 0 ||
+            r == longi - (9 + x) ||
+            i == 0 ||
+            i == longi - x ||
+            (i >= 0 && i <= 20)
+          ) {
+            aux1 = (int) (Math.random() * (100)); //Random del 0 al 100
+            if (x <= alpha) {
+              if (aux1 > 3) {
+                Maux2[i][r] = 2; // VIOLET COLOR
+              } else if (aux1 > 1) {
+                Maux2[i][r] = 0; // CREMA COLOR
+              } else if (aux1 > 0) {
+                Maux2[i][r] = 4; // BLUE COLOR
+              } else if (aux1 > -2) {
+                //   Maux2[i][r] = 1; // MEXPINK COLOR
+              }
+            } else if (x <= beta) {
+              if (aux1 > 10) {
+                Maux2[i][r] = 2; // VIOLET COLOR
+              } else if (aux1 > 5) {
+                Maux2[i][r] = 0; // CREMA COLOR
+              } else if (aux1 > 3) {
+                Maux2[i][r] = 4; // BLUE COLOR
+              } else if (aux1 > 2) {
+                Maux2[i][r] = 1; // MEXPINK COLOR
+              } else if (aux1 > 13) {
+                //Maux2[i][j] = 3; // MARRON COLOR
+              }
+            } else if (x <= gama) {
+              if (aux1 > 30) {
+                Maux2[i][r] = 2; // VIOLET COLOR
+              } else if (aux1 > 20) {
+                Maux2[i][r] = 0; // CREMA COLOR
+              } else if (aux1 > 10) {
+                Maux2[i][r] = 4; // BLUE COLOR
+              } else if (aux1 > 3) {
+                // Maux2[i][j] = 3; // MARRON COLOR
+              } else if (aux1 > 1) {
+                Maux2[i][r] = 1; // MEXPINK COLOR
+              }
+            } else if (x <= delta) {
+              if (aux1 > 30) {
+                Maux2[i][r] = 2; // VIOLET COLOR
+              } else if (aux1 > 20) {
+                Maux2[i][r] = 0; // CREMA COLOR
+              } else if (aux1 > 10) {
+                Maux2[i][r] = 4; // BLUE COLOR
+              } else if (aux1 > 3) {
+                Maux2[i][r] = 3; // MARRON COLOR
+              } else if (aux1 > 1) {
+                Maux2[i][r] = 1; // MEXPINK COLOR
+              }
+            }
+          }
         }
-		//System.out.println("im j --> " + j);
       }
-      
+      x++;
     }
-
-    /*for (int i=0;i<Maux2.length;i++) {
-		for (int j=0;j<Maux2.length;j++) {
-
-			aux1 = (int) ( Math.random() * 14 ); //Random del 0 al 12
-			
-			if (aux1<1) {
-				Maux2[i][j] = 2; 
-			}else if (aux1>3 && aux1<=5) {
-				Maux2[i][j] = 1; // Azul
-			}else if (aux1>5 && aux1<=7) {
-				Maux2[i][j] = 2; 
-			}else if (aux1>6 && aux1<=8) {
-				Maux2[i][j] = 2; 
-			}else {
-
-				Maux2[i][j] = 2;
-			}
-		}
-	}*/
     return Maux2;
   }
 
@@ -77,21 +107,18 @@ public class Space extends AC {
     // System.out.println("entre"); SOP que ayuda a verificar cuando se efectuaba un
     // evoluciona.
 
-    // super.estado++; // Operacion que aumentaba el contador en una unidad.
-    int vivos; // Contador de casillas vecindad vivas.
-    int muertos; // Contador de casillas vecindad muertas.
+    Pila<Integer> pila = new Pila<Integer>();
+    Cola<Integer> cola = new Cola<Integer>();
 
-    // For que escanea toda la matriz.
     for (int i = 0; i < Maux2.length; i++) {
       for (int j = 0; j < Maux2.length; j++) {
-        vivos = 0; // Reiniciar contador de vivos.
-        muertos = 0; // Reiniciar contador de muertos.
-
-        // System.out.println("Revisando " + i + "," + j ); SOP que ayuda a checar que
-        // se realize correctamente el for.
+        cola = new Cola<>();
+        pila = new Pila<>();
+        pila.push(0);
+        cola.push(2);
         for (int k = i - 1; k <= i + 1; k++) {
           for (int l = j - 1; l <= j + 1; l++) {
-            // Analisis de casillas vecindad.
+            //Analisis de casillas vecindad.
             if (
               k >= 0 &&
               l >= 0 &&
@@ -99,33 +126,31 @@ public class Space extends AC {
               l < Maux2.length &&
               (k != i || l != j)
             ) {
-              // System.out.println(" Analizando " + k + "," + l + " --> " + Maux2[k][l] );
-              // SOP que ayuda a checar los for.
-              if (Maux2[k][l] == 1) {
-                vivos++;
-              } else {
-                muertos++;
+              //System.out.println("    Analizando " + k  + ","  + l  + "  --> " + Maux2[k][l]     ); SOP que ayuda a checar los for.
+              if (Maux2[k][l] == 5) {
+                cola.push(0);
+              }else{
+                cola.push(Maux2[k][l]);
               }
             }
           }
         }
-        if (Maux2[i][j] == 1) { // Si la casilla esta viva,
-          if (vivos == 2 || vivos == 3) { // Y tiene dos o tres vecinos vivos
-            CopiaM[i][j] = 1; // entonces la casilla vivira.
-          } else {
-            CopiaM[i][j] = 2; // De otra forma muere.
-          }
-        } else { // Si la casilla esta muerta,
-          if (vivos == 3) { // Y tiene 3 vecinos vivos
-            CopiaM[i][j] = 1; // La casilla muerta vivira.
-          } else {
-            CopiaM[i][j] = 2; // De otro modo seguira muerta.
-          }
-        }
-        // SOP que cuenta las casillas vecinas muertas y vivas y dice como cambiara el
-        // estado de la casilla.
-        // System.out.println(" Muertos " + muertos + " Vivos-> " + vivos + " -----> " +
-        // CopiaM[i][j] );
+        if(cola.peek() == 2){           //Si la casilla esta viva, 
+          cola.pop();
+					if (cola.pop() != 2 ){  //Y tiene dos o tres vecinos vivos  
+					 CopiaM[i][j]=cola.peek();				//entonces la casilla vivira.
+					}else {
+					 	CopiaM[i][j]=2;				//De otra forma muere.
+						}			
+				}
+        /*else{ 							//Si la casilla esta muerta,
+					if ( pila.peek() != 2 ) {			//Y tiene 3 vecinos vivos
+						CopiaM[i][j]=pila.pop()+1-cola.peek(); 		//La casilla muerta vivira.
+					} 
+					else {
+						CopiaM[i][j]=cola.pop()+2-cola.peek();			//De otro modo seguira muerta.
+					}
+				}*/
       }
     }
     for (int i = 0; i < Maux2.length; i++) { // Fors que arreglan la matriz a regresar en la copia.

@@ -92,6 +92,8 @@ public class Imagen extends JPanel {
           case 5:
             gc.setColor(Color.GREEN);
             break;
+            default:
+            gc.setColor(Color.DARK_GRAY);
         }
         gc.fillRect(aux1i, aux1j, sizeCell, sizeCell);
       }
