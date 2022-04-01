@@ -1,3 +1,7 @@
+/**
+ * @author Mauricio Rubio Haro
+ * @author Kevin Isaac Alcantara Estrada
+ */
 package edd.src.Automata;
 
 import java.applet.Applet;

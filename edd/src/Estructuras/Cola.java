@@ -1,3 +1,7 @@
+/**
+ * @author Mauricio Rubio Haro
+ * @author Kevin Isaac Alcantara Estrada
+ */
 package edd.src.Estructuras;
 
 public class Cola<T> extends PushPop<T> {

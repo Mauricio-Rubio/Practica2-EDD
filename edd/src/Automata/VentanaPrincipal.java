@@ -1,10 +1,9 @@
+/**
+ * @author Mauricio Rubio Haro
+ * @author Kevin Isaac Alcantara Estrada
+ */
 package edd.src.Automata;
 
-/*
- *@Author Macias Gomez Jorge
- *
- *
- */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
   private AutomataCelular automata;
@@ -64,7 +63,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     //AutomataCelular a = new JuegoVida();
     // AutomataCelular a = new Mondrian();
-    AutomataCelular a=new CuadroRojoCuniaNegra();
+    AutomataCelular a = new CuadroRojoCuniaNegra();
     //AutomataCelular a=new Space();
     vp = new VentanaPrincipal(a);
   }

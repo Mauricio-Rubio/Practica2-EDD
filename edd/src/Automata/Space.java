@@ -1,3 +1,7 @@
+/**
+ * @author Mauricio Rubio Haro
+ * @author Kevin Isaac Alcantara Estrada
+ */
 package edd.src.Automata;
 
 import edd.src.Estructuras.*;
@@ -159,39 +163,39 @@ public class Space extends AC {
         }
         if (crema > 8) {
           do {
-            aux1 = (int) (Math.random() * (6-0)+0);
+            aux1 = (int) (Math.random() * (6 - 0) + 0);
           } while (aux1 == crema);
           cola.push(aux1);
           cola.push(2);
         } else if (rosa > 8) {
           do {
-            aux1 = (int) (Math.random() * (6-0)+0);
+            aux1 = (int) (Math.random() * (6 - 0) + 0);
           } while (aux1 == rosa);
           cola.push(aux1);
           cola.push(2);
         } else if (violet > 10) {
           do {
-            aux1 = (int) (Math.random() * (6-0)+0);
+            aux1 = (int) (Math.random() * (6 - 0) + 0);
           } while (aux1 == violet);
           cola.push(aux1);
         } else if (marron > 10) {
           do {
-            aux1 = (int) (Math.random() * (6-0)+0);
+            aux1 = (int) (Math.random() * (6 - 0) + 0);
           } while (aux1 != marron);
           cola.push(aux1);
         } else if (blue > 10) {
           do {
-            aux1 = (int) (Math.random() * (6-0)+0);
+            aux1 = (int) (Math.random() * (6 - 0) + 0);
           } while (aux1 == blue);
           cola.push(aux1);
         } else if (verde > 10) {
           do {
-            aux1 = (int) (Math.random() * (6-0)+0);
+            aux1 = (int) (Math.random() * (6 - 0) + 0);
           } while (aux1 == verde);
           cola.push(aux1);
         } else {
           do {
-            aux1 = (int) (Math.random() * (6-0)+0);
+            aux1 = (int) (Math.random() * (6 - 0) + 0);
           } while (aux1 == negro);
           cola.push(aux1);
         }
