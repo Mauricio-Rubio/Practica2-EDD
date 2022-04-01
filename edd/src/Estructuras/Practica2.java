@@ -1,17 +1,61 @@
 package edd.src.Estructuras;
+import java.util.Scanner;
+import java.util.InputMismatchException;
 
-
+/** Práctica 2.- Estructuras de datos
+ * @author Alcántara Estrada Kevin Isaac
+ * @author Rubio Haro Mauricio
+ */
 public class Practica2 {
-
+    //Variable global para contar los movimientos de torres de hanoi
      static int movimientos=0;
-
+    
+/** Método para mover un disco en las torres de hanoi
+ * @author Alcántara Estrada Kevin Isaac
+ * @param sale Pila de enteros que representa el pilar de donde sale el disco
+ * @param entra PIla de enteros que representa el pilar a donde entra el disco
+ */
     private static void mover(Pila<Integer> sale, Pila<Integer> entra){
 
 	    entra.push(sale.cabeza.elemento);
 	    sale.pop();
 	    movimientos++;
     }
-    
+
+   /** Método para verificar si un disco se puede mover y realizarla, de lo contrario se intetará mover el disco en sentido inverso
+ * @author Alcántara Estrada Kevin Isaac
+ * @param x Pila de enteros que representa el pilar de donde se intenta sacar el disco
+ * @param y Pila de enteros que representa el pilar a donde se quiere mover el pilar
+ * @param condicion Variable booleana para verificar si los movimientos son válidos
+ */ 
+    private static void movida(Pila<Integer> x, Pila<Integer> y, boolean condicion){
+	if(!x.isEmpty()){//Verifico que puedo sacar discos
+	    
+			    if((y.isEmpty())){//Si la pila a la que queremos pasar el disco es vací, entonces entra directo
+			  	mover(x, y);//X-->Y
+				condicion = true;
+				
+			    }else{
+			     	if(x.cabeza.elemento < y.cabeza.elemento){//Si no es vacía verifico que el elemento a meter es un disco más pequeño
+				       	mover(x, y);//A-->C
+					condicion= true;
+					
+					}
+			    }
+			}
+
+		if((!y.isEmpty())&&(condicion==false)){//Verifico que a donde se quería meter el disco originalmente no es vacía
+			     	mover(y, x);//Y-->X //Muevo directo
+				}
+
+    }
+
+     /** Método para imprimir las torres
+ * @author Alcántara Estrada Kevin Isaac
+ * @param origen Pila de enteros que representa el primer pilar
+ * @param auxiliar Pila de enteros que representa el segundo pilar
+ * @param destino Pila de enteros que representa el tercer pilar
+ */ 
     private static void imprimirTorres(Pila<Integer> origen, Pila<Integer> auxiliar, Pila<Integer> destino){
 	System.out.println("\n----INICIO----\n");
 	System.out.println("Origen \n" +  origen.toString());
@@ -20,206 +64,105 @@ public class Practica2 {
 	   	System.out.println("\n----MOVIMIENTOS: "+ movimientos + " ----\n");
 
     }
-    
+
+     /** Método para resolver las torres de hanoi en minimo de pasos
+ * @author Alcántara Estrada Kevin Isaac
+ * @param cantidadDiscos Variable entera que representa el numero de discos
+ * @param origen Pila de enteros que representa el primer pilar
+ * @param auxiliar Pila de enteros que representa el segundo pilar
+ * @param destino Pila de enteros que representa el tercer pilar
+ */ 
     public static void torresHanoi(int cantidadDiscos,Pila<Integer> origen, Pila<Integer> auxiliar, Pila<Integer> destino){
 
-	
+	//Caso donde los discos son 0 o menos
 	if(cantidadDiscos <= 0){
 	    System.out.println("Para las torres de hanoi se necesita al menos 1 disco");
 	    return;
 	}
 	
+	//Se añaden los discos al primer pilar
 		for(int i= cantidadDiscos; i>=1; i--){
 	    origen.push(i);
 	   
 	    	}
-		 imprimirTorres(origen, auxiliar, destino);
+		imprimirTorres(origen, auxiliar, destino);//Imprimir torres
 
 
-		if(cantidadDiscos%2!=0){
+		if(cantidadDiscos%2!=0){//Si el numero de discos es impar
 		    boolean paro=false;
 		   
-		    Pila<Integer> caja = origen.clone();
+		    Pila<Integer> caja = origen.clone();//Hacemos una copia de la torre inicial
 		    
 		    //INICIO PRIMERA PARTE
 		    while(paro==false){
-			 boolean a = false, b= false, c = false;
+			boolean condicion=false;
 			//Paso 1
-			if(!origen.isEmpty()){//Verifico que puedo sacar discos
-			    if((destino.isEmpty())){//Si es vacía entra directo
-			  	mover(origen, destino);//A-->C
-				imprimirTorres(origen, auxiliar, destino);
-				a = true;
-				
-			    }else{
-			     	if(origen.cabeza.elemento < destino.cabeza.elemento){//Si no es vacía verifico que el elemento a meter es un disco más pequeño
-				       	mover(origen, destino);//A-->C
-						imprimirTorres(origen, auxiliar, destino);
-					a= true;
-					
-					}
-			    }
-			}
-
-			if((!destino.isEmpty())&&(a==false)){//Verifico que destino no es vacía
-			     	mover(destino, origen);//C-->A //Muevo directo
-			     imprimirTorres(origen, auxiliar, destino);
-			     
-				}
+			movida(origen,destino,condicion); //Movemos de Origen --> Destino || Destino-->Origen
+			imprimirTorres(origen,auxiliar,destino); //Imprimir torres
 
 			
 			if((!destino.isEmpty())&&  (caja.ultimo.elemento==destino.ultimo.elemento)){
 				 break;
-			}//Condición de cierre
+			}//Condición para frenar el ciclo
 			
 			//Paso 2
-			if(!origen.isEmpty()){//Verifico que origen tiene discps
-			    if((auxiliar.isEmpty())){//Si aux es vacía se mueve directo
-			  	mover(origen, auxiliar);//A-->B
-				imprimirTorres(origen, auxiliar, destino);
-				b=true;
-				
-			    }else{
-				if(origen.cabeza.elemento < auxiliar.cabeza.elemento){//Verifico que el disco a mover es menor
-				       	mover(origen, auxiliar);//A-->B
-					imprimirTorres(origen, auxiliar, destino);
-					b=true;
-					}
-			    }
-			}
-
-
-			if((!auxiliar.isEmpty())&&(b==false)){//Verifico que auxiliar no es vacia
-			     	mover(auxiliar, origen);//B-->A
-			     imprimirTorres(origen, auxiliar, destino);
-				}
-				if((!destino.isEmpty())&&  (caja.ultimo.elemento==destino.ultimo.elemento)){
-				 break;
-			     }
+			 movida(origen,auxiliar,condicion); //Movemos de Origen --> Auxiliar || Auxiliar-->Origen
+			 imprimirTorres(origen,auxiliar,destino);//Imprimir torres
+			
+			 if((!destino.isEmpty())&&  (caja.ultimo.elemento==destino.ultimo.elemento)){
+				 break; 
+			     }//Condición para frenar el ciclo
 
 					//Paso 3
-				if(!destino.isEmpty()){
-			    if((auxiliar.isEmpty())){
-			  	mover(destino, auxiliar);//C-->B
-				imprimirTorres(origen, auxiliar, destino);
-				c=true;
-			    }else{
-			        	if(destino.cabeza.elemento < auxiliar.cabeza.elemento){
-					    
-				       	mover(destino, auxiliar);//C-->B
-						imprimirTorres(origen, auxiliar, destino);
-					c=true;
-					}
-			    }
-			}
-
-				if((!auxiliar.isEmpty())&&(c==false)){
-			     	mover(auxiliar, destino);//B-->C
-			     imprimirTorres(origen, auxiliar, destino);
-				}
-
-		
-			     
+			 movida(destino,auxiliar,condicion); //Movemos de Destino--> Auxiliar || Auxiliar --> Destino
+			 imprimirTorres(origen,auxiliar,destino);//Imprimir torres
+			
+				
 
 				if((!destino.isEmpty())&&  (caja.ultimo.elemento==destino.ultimo.elemento)){
 				 break;
-			     }
+				}//Condicion para frenar el ciclo
 			     
-		    }//FINAL PRIMERA PARTE
+		    }//FINAL PRIMERA PART cuando los discos son impares
 
 
 
 		    //INICIO SEGUNDA PARTE 
 		    while(paro==false){
-			 boolean a = false, b= false, c = false;
+			boolean condicion=false;
 			 
 			//Paso 1
-			if(!auxiliar.isEmpty()){//Verifico que puedo sacar discos
-			    if((origen.isEmpty())){//Si es vacía entra directo
-			  	mover(auxiliar, origen);//B-->A
-				imprimirTorres(origen, auxiliar, destino);
-				b = true;
-				
-			    }else{
-			     	if(auxiliar.cabeza.elemento < origen.cabeza.elemento){//Si no es vacía verifico que el elemento a meter es un disco más pequeño
-				       	mover(auxiliar, origen);//B-->A
-						imprimirTorres(origen, auxiliar, destino);
-					b= true;
-					
-					}
-			    }
-			}
-
-			if((!origen.isEmpty())&&(b==false)){//Verifico que destino no es vacía
-			     	mover(origen, auxiliar);//A-->B //Muevo directo
-			     imprimirTorres(origen, auxiliar, destino);
-			     
-				}
-
+	  
+			movida(auxiliar,origen,condicion);//Movemos Auxiliar --> Origen || Origen --> Auxiliar
+			imprimirTorres(origen,auxiliar,destino);// Imprimir torres
+			
 			
 			if((!destino.isEmpty())&& (caja.equals(destino))){
 				 break;
-			}//Condición de cierre
+			}//Condición para frenar el ciclo
 			
 			//Paso 2
-			if(!auxiliar.isEmpty()){//Verifico que origen tiene discps
-			    if((destino.isEmpty())){//Si aux es vacía se mueve directo
-			  	mover(auxiliar, destino);//B-->C
-				imprimirTorres(origen, auxiliar, destino);
-				c=true;
-				
-			    }else{
-				if(auxiliar.cabeza.elemento < destino.cabeza.elemento){//Verifico que el disco a mover es menor
-				       	mover(auxiliar, destino);//B-->C
-					imprimirTorres(origen, auxiliar, destino);
-					c=true;
-					}
-			    }
-			}
-
-
-			if((!destino.isEmpty())&&(c==false)){//Verifico que auxiliar no es vacia
-			     	mover(destino, auxiliar);//C-->B
-			     imprimirTorres(origen, auxiliar, destino);
-				}
-			
-				if((!destino.isEmpty())&&  (caja.equals(destino))){
-				 break;
-			     }
-
-					//Paso 3
-				if(!origen.isEmpty()){
-			    if((destino.isEmpty())){
-			  	mover(origen, destino);//A-->C
-				imprimirTorres(origen, auxiliar, destino);
-				a=true;
-			    }else{
-			        	if(origen.cabeza.elemento < destino.cabeza.elemento){
-					    
-				       	mover(origen, destino);//A-->C
-						imprimirTorres(origen, auxiliar, destino);
-					a=true;
-					}
-			    }
-			}
-
-				if((!destino.isEmpty())&&(a==false)){
-			     	mover(destino, origen);//C-->A
-			     imprimirTorres(origen, auxiliar, destino);
-				}
-
 		
-			     
+				 movida(auxiliar,destino,condicion);//Movemos Auxiliar --> Destino || Destino --> Auxiliar
+				 imprimirTorres(origen,auxiliar,destino);//Imprimir torres
+				if((!destino.isEmpty())&&  (caja.equals(destino))){
+				 break;
+				}//Caso para frenar el ciclo
+
+		       	//Paso 3
+			
+			 movida(origen,destino,condicion);//Movemos Origen --> Destino || Destino --> Origen
+			 imprimirTorres(origen,auxiliar,destino);
 
 				if((!destino.isEmpty())&&  (caja.equals(destino))){
 				 break;
-			     }
+				}//Condicion de frenado
 			     
 		    }//FINAL PRIMERA PARTE
 		    
 		}// FINAL PARA CASOS IMPARES
 
-
+		//El caso de discos pares es analogo, solo cambia hacia donde se mueven los discos
 		if(cantidadDiscos%2==0){//CASOS PARES
 		    boolean paro=false;
 		   
@@ -227,173 +170,69 @@ public class Practica2 {
 		    
 		    //INICIO PRIMERA PARTE
 		    while(paro==false){
-			 boolean a = false, b= false, c = false;
+			 boolean condicion=false;
 			//Paso 1
-			if(!origen.isEmpty()){//Verifico que puedo sacar discos
-			    if((auxiliar.isEmpty())){//Si es vacía entra directo
-			  	mover(origen, auxiliar);//A-->B
-				imprimirTorres(origen, auxiliar, destino);
-				b = true;
-				
-			    }else{
-			     	if(origen.cabeza.elemento < auxiliar.cabeza.elemento){//Si no es vacía verifico que el elemento a meter es un disco más pequeño
-				       	mover(origen, auxiliar);//A-->B
-						imprimirTorres(origen, auxiliar, destino);
-					b= true;
-					
-					}
-			    }
-			}
+		
 
-			if((!auxiliar.isEmpty())&&(b==false)){//Verifico que destino no es vacía
-			     	mover(auxiliar, origen);//B-->A //Muevo directo
-			     imprimirTorres(origen, auxiliar, destino);
-			     
-				}
-
-			
+			 movida(origen,auxiliar,condicion);//Movemos Origen --> Auxiliar || Auxiliar --> Origen
+			 imprimirTorres(origen,auxiliar,destino);
+			 
 			if((!destino.isEmpty())&&  (caja.ultimo.elemento==destino.ultimo.elemento)){
 				 break;
 			}//Condición de cierre
 			
 			//Paso 2
-			if(!origen.isEmpty()){//Verifico que origen tiene discps
-			    if((destino.isEmpty())){//Si aux es vacía se mueve directo
-			  	mover(origen, destino);//A-->C
-				imprimirTorres(origen, auxiliar, destino);
-				c=true;
-				
-			    }else{
-				if(origen.cabeza.elemento < destino.cabeza.elemento){//Verifico que el disco a mover es menor
-				       	mover(origen, destino);//A-->C
-					imprimirTorres(origen, auxiliar, destino);
-					c=true;
-					}
-			    }
-			}
-
-
-			if((!auxiliar.isEmpty())&&(c==false)){//Verifico que auxiliar no es vacia
-			     	mover(destino, origen);//C-->A
-			     imprimirTorres(origen, auxiliar, destino);
-				}
-				if((!destino.isEmpty())&&  (caja.ultimo.elemento==destino.ultimo.elemento)){
-				 break;
-			     }
-
-					//Paso 3
-				if(!auxiliar.isEmpty()){
-			    if((destino.isEmpty())){
-			  	mover(auxiliar, destino);//B-->C
-				imprimirTorres(origen, auxiliar, destino);
-				a=true;
-			    }else{
-			        	if(auxiliar.cabeza.elemento < destino.cabeza.elemento){
-					    
-				       	mover(auxiliar, destino);//B-->C
-						imprimirTorres(origen, auxiliar, destino);
-					a=true;
-					}
-			    }
-			}
-
-				if((!destino.isEmpty())&&(c==false)){
-			     	mover(destino, auxiliar);//C-->B
-			     imprimirTorres(origen, auxiliar, destino);
-				}
-
 		
-			     
+
+			 movida(origen,destino,condicion);//Movemos Origen --> Destino || Destino --> Origen
+			 imprimirTorres(origen,auxiliar,destino);
+			 
+				if((!destino.isEmpty())&&  (caja.ultimo.elemento==destino.ultimo.elemento)){
+				 break;
+			     }
+
+		      	//Paso 3
+			
+
+			     	 movida(auxiliar,destino,condicion);//Movemos Auxiliar --> Destino || Destino --> Auxiliar
+				 imprimirTorres(origen,auxiliar,destino);
 
 				if((!destino.isEmpty())&&  (caja.ultimo.elemento==destino.ultimo.elemento)){
 				 break;
 			     }
 			     
-		    }//FINAL PRIMERA PARTE
+		    }//FINAL PRIMERA PARTE para casos pares
 
 
 
 		    //INICIO SEGUNDA PARTE 
 		    while(paro==false){
-			 boolean a = false, b= false, c = false;
+			 boolean condicion=false;
 			 
 			//Paso 1
-			if(!auxiliar.isEmpty()){//Verifico que puedo sacar discos
-			    if((destino.isEmpty())){//Si es vacía entra directo
-			  	mover(auxiliar, destino);//B-->C
-				imprimirTorres(origen, auxiliar, destino);
-				c = true;
-				
-			    }else{
-			     	if(auxiliar.cabeza.elemento < destino.cabeza.elemento){//Si no es vacía verifico que el elemento a meter es un disco más pequeño
-				       	mover(auxiliar, destino);//B-->C
-						imprimirTorres(origen, auxiliar, destino);
-					c= true;
-					
-					}
-			    }
-			}
-
-			if((!destino.isEmpty())&&(c==false)){//Verifico que destino no es vacía
-			     	mover(destino, auxiliar);//C-->B //Muevo directo
-			     imprimirTorres(origen, auxiliar, destino);
-			     
-				}
-
 			
+
+			  movida(auxiliar,destino,condicion);//Movemos Auxiliar --> Destino || Destino --> Auxiliar
+			 imprimirTorres(origen,auxiliar,destino);
+			 
 			if((!destino.isEmpty())&& (caja.equals(destino))){
 				 break;
 			}//Condición de cierre
 			
 			//Paso 2
-			if(!auxiliar.isEmpty()){//Verifico que origen tiene discps
-			    if((origen.isEmpty())){//Si aux es vacía se mueve directo
-			  	mover(auxiliar, origen);//B-->A
-				imprimirTorres(origen, auxiliar, destino);
-				a=true;
-				
-			    }else{
-				if(auxiliar.cabeza.elemento < origen.cabeza.elemento){//Verifico que el disco a mover es menor
-				       	mover(auxiliar, origen);//B-->A
-					imprimirTorres(origen, auxiliar, destino);
-					a=true;
-					}
-			    }
-			}
-
-
-			if((!origen.isEmpty())&&(a==false)){//Verifico que auxiliar no es vacia
-			     	mover(origen, auxiliar);//A-->B
-			     imprimirTorres(origen, auxiliar, destino);
-				}
 			
+			 movida(auxiliar,origen,condicion);//Movemos Auxiliar --> Origen || Origen --> Auxiliar
+			 imprimirTorres(origen,auxiliar,destino);
 				if((!destino.isEmpty())&&  (caja.equals(destino))){
 				 break;
 			     }
 
 					//Paso 3
-				if(!destino.isEmpty()){
-			    if((origen.isEmpty())){
-			  	mover(destino, origen);//C-->A
-				imprimirTorres(origen, auxiliar, destino);
-				b=true;
-			    }else{
-			        	if(destino.cabeza.elemento < origen.cabeza.elemento){
-					    
-				       	mover(destino, origen);//C-->A
-						imprimirTorres(origen, auxiliar, destino);
-					b=true;
-					}
-			    }
-			}
-
-				if((!origen.isEmpty())&&(b==false)){
-			     	mover(origen, destino);//A-->C
-			     imprimirTorres(origen, auxiliar, destino);
-				}
+			
 
 		
-			     
+			     	 movida(destino,origen,condicion);//Movemos Destino --> Origen || Origen --> Destino
+			 imprimirTorres(origen,auxiliar,destino);
 
 				if((!destino.isEmpty())&&  (caja.equals(destino))){
 				 break;
@@ -414,15 +253,36 @@ public class Practica2 {
 
     }
 
+    /** Método main para hacer las pruebas del resto de métodos
+ * @author Alcántara Estrada Kevin Isaac
+ * @author Rubio Haro Mauricio
+ * @param args 
+ */
     public static void main(String[] args) {
+	//PRUEBAS HANOI
 	Pila<Integer> duracell = new Pila<Integer>();
 	Pila<Integer> sony = new Pila<Integer>();
 	Pila<Integer> lg  = new Pila<Integer>();
-	int discos = 4;
+	int discos = 0;
+	Scanner escaner = new Scanner(System.in);
+	boolean listo=true;
+	do{
+		listo=false;
+		
+		 try{
+		System.out.println("PRUEBA HANOI\n¿Cuántos discos quieres acomodar?");
+		discos=escaner.nextInt();
+ 		    }catch(InputMismatchException e){
+		
+		     listo=true;
+		     escaner.next();
+		 }
+	    }while(listo);
+	
 	
 			torresHanoi(discos, duracell, sony, lg);
 
-	
+			//FIN PRUEBAS HANOI
 		
         // Escribe aqui tu codigo para probar los metodos anteriores. 
         // No olvides comentar tu codigo y escribir tu nombre en el readme. 

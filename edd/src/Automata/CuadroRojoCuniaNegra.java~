@@ -2,7 +2,7 @@ package edd.src.Automata;
 import java.util.Random;
 import edd.src.Estructuras.*;
 
-public class juego extends AC{
+public class CuadroRojoCuniaNegra extends AC{
 
 		int[][] Maux2=new int[Imagen.numCells][Imagen.numCells];
 		int[][] MauxCopia=new int [Imagen.numCells][Imagen.numCells];
