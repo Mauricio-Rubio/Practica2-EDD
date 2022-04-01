@@ -250,15 +250,29 @@ public class Practica2 {
     // No olvides imprimir cada paso de la solución.
   }
 
+  /**binarioColas
+   *
+   * La idea que se tiene para resolver este problema es sencilla,
+   * sabemos que podemos generar cualquier numero binario a partir
+   * del 1 y del 0, es decir, para generar numeros binarios vamos
+   * agregando 1 y 0, por lo tanto, basta con meter el 1 como caso
+   * base, y posteriormente ir agregandole el 0 y el 1 para obtener
+   * 10 y 11 respectivamente. Luego haremos esto para cada elemento
+   * que se vaya agregando a la cola mientras que sacaremos al elemen-
+   * to al que se le están agregando dichos 1 y 0.
+   * @param N
+   */
   public static void binarioColas(int N) {
     Cola<String> cola = new Cola<>();
     if (N < 0) {
       throw new IllegalArgumentException("");
     }
+    //Caso base, sabemos que 0 en binario es 0 en decimal
     if (N == 0) {
       cola.push("0");
       System.out.println(cola);
     }
+    //
     if (N >= 1) {
       cola.push("1");
       System.out.println("---------------------");
