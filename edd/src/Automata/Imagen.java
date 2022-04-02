@@ -62,8 +62,7 @@ public class Imagen extends JPanel {
      * @param colores Se mapean a cada estado de la matriz para pintarlo de su respectivo color.
      */
     public void pinta(int[][] matriz, Color[] colores) {
-    	Color rosa = new Color(252,3,161);
-    	Color morado = new Color(152, 3, 252);
+    //PARA CUADROROJOCUNIANEGRA
     	Color azulito = new Color(66, 227, 245);
     	Color verdecito = new Color(108, 245, 66);
     	Color amarillito = new Color(245, 242, 66);
@@ -95,6 +94,7 @@ public class Imagen extends JPanel {
                         gc.setColor(verdecito); break;
                     
                 }
+                //AQUI ACABA
                 gc.fillRect(aux1i,aux1j,sizeCell,sizeCell);
             }
        }       
